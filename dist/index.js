@@ -1,10 +1,12 @@
-import app from "./app.js";
-import { connectToDatabase } from "./db/connection.js";
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const app_js_1 = require("./app.js");
+const connection_js_1 = require("./db/connection.js");
 //connections and listeneres
 const PORT = process.env.PORT || 5000;
-connectToDatabase()
+(0, connection_js_1.connectToDatabase)()
     .then(() => {
-    app.listen(PORT, () => console.log("Server Open & Connected To Database 🤟"));
+    app_js_1.default.listen(PORT, () => console.log("Server Open & Connected To Database 🤟"));
 })
     .catch((err) => console.log(err));
 //# sourceMappingURL=index.js.map
