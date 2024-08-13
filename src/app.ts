@@ -8,13 +8,19 @@ config();
 const app = express();
 
 //middlewares
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+const corsOptions = {
+    origin: ["http://localhost:5173", "https://aisaaschatbot-7.onrender.com"], // Add your frontend domain and any other trusted domains
+    credentials: true, // Allows cookies to be sent with requests
+    methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+    allowedHeaders: "Content-Type,Authorization",
+  };
+  app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser(process.env.COOKIE_SECRET));
 
 //remove it in production
 app.use(morgan("dev"));
 
-app.use("/api/v1", appRouter);
+app.use("/api", appRouter);
 
 export default app;

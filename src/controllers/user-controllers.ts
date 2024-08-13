@@ -44,13 +44,23 @@ export const userSignup = async (
     const token = createToken(user._id.toString(), user.email, "7d");
     const expires = new Date();
     expires.setDate(expires.getDate() + 7);
+    const domain = process.env.NODE_ENV === "production" ? "aisaaschatbot-7.onrender.com" : "localhost";
+
+    res.clearCookie(COOKIE_NAME, {
+      httpOnly: true,
+      domain: domain,
+      signed: true,
+      path: "/",
+    });
+    
     res.cookie(COOKIE_NAME, token, {
       path: "/",
-      domain: "localhost",
+      domain: domain,
       expires,
       httpOnly: true,
       signed: true,
     });
+    
 
     return res
       .status(201)
